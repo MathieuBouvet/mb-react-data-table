@@ -9,7 +9,8 @@
     "README.md"
   ],
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "github:MathieuBouvet/mb-react-data-table.git"
   },
   "dependencies": {},
   "scripts": {
