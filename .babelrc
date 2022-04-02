@@ -1,8 +1,3 @@
 {
-  "presets": [
-    [
-      "@babel/preset-react",
-      { "absoluteRuntime": false, "runtime": "automatic" }
-    ]
-  ]
+  "presets": [["@babel/preset-react", { "runtime": "automatic" }]]
 }
