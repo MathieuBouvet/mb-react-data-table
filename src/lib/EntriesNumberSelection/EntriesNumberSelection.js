@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import styles from "./entriesNumberSelection.module.css";
 
-const availableNumbers = [10, 25, 50, 100];
+const availableNumbers = [2, 10, 25, 50, 100];
 
 const EntriesNumberSelection = ({
   entriesNumber,

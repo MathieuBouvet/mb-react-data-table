@@ -1,7 +1,7 @@
 import cx from "classnames";
 import PropTypes from "prop-types";
 
-import range from "../utils/range";
+import getPages, { ELISPSIS_MARKER } from "../utils/getPages";
 
 import styles from "./pagination.module.css";
 
@@ -11,7 +11,7 @@ const Pagination = ({
   setCurrentPage = () => {},
   incrementPage = () => {},
 }) => {
-  const pages = range({ start: 1, end: pageTotal + 1 });
+  const pages = getPages(currentPage, pageTotal);
 
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pageTotal;
@@ -28,17 +28,23 @@ const Pagination = ({
       >
         Previous
       </button>
-      {pages.map(page => (
-        <button
-          key={page}
-          onClick={() => setCurrentPage(page)}
-          className={cx(styles.paginationButton, {
-            [styles.currentPage]: page === currentPage,
-          })}
-        >
-          {page}
-        </button>
-      ))}
+      {pages.map((page, index) =>
+        page === ELISPSIS_MARKER ? (
+          <div key={`elipsis-${index}`} className={styles.elipsis}>
+            ...
+          </div>
+        ) : (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={cx(styles.paginationButton, {
+              [styles.currentPage]: page === currentPage,
+            })}
+          >
+            {page}
+          </button>
+        )
+      )}
       <button
         onClick={goNext}
         disabled={isLastPage}
