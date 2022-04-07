@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import styles from "./entriesNumberSelection.module.css";
 
-const availableNumbers = [2, 10, 25, 50, 100];
+const availableNumbers = [10, 25, 50, 100];
 
 const EntriesNumberSelection = ({
   entriesNumber,
@@ -12,6 +12,11 @@ const EntriesNumberSelection = ({
   const isDefaultInAvailable = availableNumbers.find(
     number => number === initialEntriesNumber
   );
+
+  const allAvailableNumbers = isDefaultInAvailable
+    ? availableNumbers
+    : [...availableNumbers, initialEntriesNumber].sort((a, b) => a - b);
+
   return (
     <div className={styles.entriesNumberSelection}>
       Show
@@ -19,8 +24,7 @@ const EntriesNumberSelection = ({
         value={entriesNumber}
         onChange={e => setEntriesNumber(Number(e.target.value))}
       >
-        {!isDefaultInAvailable && <option>{initialEntriesNumber}</option>}
-        {availableNumbers.map(number => (
+        {allAvailableNumbers.map(number => (
           <option key={number}>{number}</option>
         ))}
       </select>
