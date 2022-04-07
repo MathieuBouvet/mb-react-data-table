@@ -7,6 +7,8 @@ import EntriesNumberSelection from "./EntriesNumberSelection";
 import SearchEntries from "./SearchEntries";
 import Pagination from "./Pagination";
 
+import entrySearcher from "./utils/entrySearcher";
+
 import styles from "./reactDataTable.module.css";
 
 const ReactDataTable = ({
@@ -43,16 +45,27 @@ const ReactDataTable = ({
     { setSearch, setEntriesNumber, setCurrentPage, incrementCurrentPage },
   ] = useDataTableState(initialEntriesNumber);
 
-  const pageTotal = Math.ceil(children.length / entriesNumber);
   const startIndex = (currentPage - 1) * entriesNumber;
   const endIndex = startIndex + entriesNumber;
 
-  const entries = children.slice(startIndex, endIndex);
+  const searchedEntries = children.filter(
+    entrySearcher(
+      search,
+      columns.map(column => column.dataKey)
+    )
+  );
+  const entries = searchedEntries.slice(startIndex, endIndex);
+  const hasEntries = entries.length > 0;
+  const pageTotal = Math.ceil(searchedEntries.length / entriesNumber);
 
   return (
     <div className={cx(className, styles.reactDataTable)}>
       <div className={styles.controls}>
-        {renderEntriesNumberSelection(entriesNumber, setEntriesNumber, initialEntriesNumber)}
+        {renderEntriesNumberSelection(
+          entriesNumber,
+          setEntriesNumber,
+          initialEntriesNumber
+        )}
         {renderSearchEntries(search, setSearch)}
       </div>
       <table className={styles.table}>
@@ -71,12 +84,18 @@ const ReactDataTable = ({
               ))}
             </tr>
           ))}
+          {!hasEntries && (
+            <tr>
+              <td colSpan={columns.length}>No matching record found</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className={styles.controls}>
         <p>
-          showing {startIndex + 1} to {startIndex + entries.length} of{" "}
-          {children.length} entries
+          showing {hasEntries ? startIndex + 1 : 0} to{" "}
+          {startIndex + entries.length} of {searchedEntries.length} entries
+          {search !== "" && ` (filtered from ${children.length} total entries)`}
         </p>
         {renderPagination(
           currentPage,

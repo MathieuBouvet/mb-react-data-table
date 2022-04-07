@@ -13,17 +13,17 @@ const Pagination = ({
 }) => {
   const pages = getPages(currentPage, pageTotal);
 
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === pageTotal;
+  const isPreviousDisabled = currentPage === 1 || pageTotal === 0;
+  const isNextDisabled = currentPage === pageTotal || pageTotal === 0;
 
-  const goPrevious = () => !isFirstPage && incrementPage(-1);
-  const goNext = () => !isLastPage && incrementPage(1);
+  const goPrevious = () => !isPreviousDisabled && incrementPage(-1);
+  const goNext = () => !isNextDisabled && incrementPage(1);
 
   return (
     <div className={styles.pagination}>
       <button
         onClick={goPrevious}
-        disabled={isFirstPage}
+        disabled={isPreviousDisabled}
         className={styles.paginationButton}
       >
         Previous
@@ -47,7 +47,7 @@ const Pagination = ({
       )}
       <button
         onClick={goNext}
-        disabled={isLastPage}
+        disabled={isNextDisabled}
         className={styles.paginationButton}
       >
         next
