@@ -19,9 +19,11 @@ function getPages(currentPage, pageTotal) {
     ];
   }
   return [
+    1,
     ELISPSIS_MARKER,
     ...range({ start: currentPage - 1, end: currentPage + 2 }),
     ELISPSIS_MARKER,
+    pageTotal,
   ];
 }
 
