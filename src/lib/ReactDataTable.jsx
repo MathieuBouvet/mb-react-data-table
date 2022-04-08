@@ -24,6 +24,7 @@ const ReactDataTable = ({
   columns,
   children,
   initialEntriesNumber = 10,
+  rowKeyProducer = row => row.id,
   renderEntriesNumberSelection = props => <EntriesNumberSelection {...props} />,
   renderSearchEntries = props => <SearchEntries {...props} />,
   renderPagination = props => <Pagination {...props} />,
@@ -84,7 +85,7 @@ const ReactDataTable = ({
         </thead>
         <tbody>
           {entries.map((row, index) => (
-            <tr key={row.id ?? index} className={styles.row}>
+            <tr key={rowKeyProducer(row) ?? index} className={styles.row}>
               {columns.map(({ dataKey }) => (
                 <td key={dataKey}>{row[dataKey]}</td>
               ))}
@@ -125,6 +126,7 @@ ReactDataTable.propTypes = {
   ).isRequired,
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
   initialEntriesNumber: PropTypes.number,
+  rowKeyProducer: PropTypes.func,
   renderEntriesNumberSelection: PropTypes.func,
   renderSearchEntries: PropTypes.func,
   renderPagination: PropTypes.func,
