@@ -11,6 +11,29 @@
 .controls {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 
+.headers {
+  border-bottom: 1px solid black;
+}
+
+.headers th {
+  padding: 10px 18px;
+}
+
+.row {
+  border-bottom: 1px solid #ddd;
+}
+
+.row td {
+  padding: 8px 10px;
+}
+
+.row:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.row:last-child {
+  border-color: black;
+}

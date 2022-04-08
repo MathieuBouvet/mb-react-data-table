@@ -70,7 +70,7 @@ const ReactDataTable = ({
       </div>
       <table className={styles.table}>
         <thead>
-          <tr>
+          <tr className={styles.headers}>
             {columns.map(({ name, dataKey }) => (
               <th key={dataKey}>{name}</th>
             ))}
@@ -78,7 +78,7 @@ const ReactDataTable = ({
         </thead>
         <tbody>
           {entries.map((row, index) => (
-            <tr key={row.id ?? index}>
+            <tr key={row.id ?? index} className={styles.row}>
               {columns.map(({ dataKey }) => (
                 <td key={dataKey}>{row[dataKey]}</td>
               ))}
