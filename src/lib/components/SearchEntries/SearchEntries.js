@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import styles from "./searchEntries.module.css";
 
-const SearchEntries = ({ value = "", setValue = () => {} }) => {
+const SearchEntries = ({ search = "", setSearch = () => {} }) => {
   return (
     <div className={styles.searchEntries}>
       <label>
@@ -10,8 +10,8 @@ const SearchEntries = ({ value = "", setValue = () => {} }) => {
         <input
           className={styles.searchInput}
           type="search"
-          value={value}
-          onChange={e => setValue(e.target.value)}
+          value={search}
+          onChange={e => setSearch(e.target.value)}
         />
       </label>
     </div>
@@ -19,8 +19,8 @@ const SearchEntries = ({ value = "", setValue = () => {} }) => {
 };
 
 SearchEntries.propTypes = {
-  value: PropTypes.string,
-  setValue: PropTypes.func,
+  search: PropTypes.string,
+  seatSearch: PropTypes.func,
 };
 
 export default SearchEntries;

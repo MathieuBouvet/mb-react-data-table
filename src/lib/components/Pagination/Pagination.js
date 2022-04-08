@@ -1,7 +1,7 @@
 import cx from "classnames";
 import PropTypes from "prop-types";
 
-import getPages, { ELISPSIS_MARKER } from "../utils/getPages";
+import getPages, { ELISPSIS_MARKER } from "../../utils/getPages";
 
 import styles from "./pagination.module.css";
 

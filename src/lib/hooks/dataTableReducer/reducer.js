@@ -20,7 +20,7 @@ function reducer(state, action) {
     case Types.setCurrentPage: {
       return { ...state, currentPage: action.payload };
     }
-    case Types.incrementCurrentPage: {
+    case Types.incrementPage: {
       return { ...state, currentPage: state.currentPage + action.payload };
     }
     case Types.setEntriesNumber: {

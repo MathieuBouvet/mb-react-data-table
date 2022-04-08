@@ -1,7 +1,7 @@
 import cx from "classnames";
 import PropTypes from "prop-types";
 
-import { SortStatus } from "../utils/sortStatus";
+import { SortStatus } from "../../utils/sortStatus";
 
 import styles from "./columnHeader.module.css";
 

@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import useDataTableState from "./hooks/useDataTableState";
 import useDataTableSorting from "./hooks/useDataTableSorting";
 
-import EntriesNumberSelection from "./EntriesNumberSelection";
-import SearchEntries from "./SearchEntries";
-import Pagination from "./Pagination";
-import ColumnHeader from "./ColumnHeader/index";
+import EntriesNumberSelection from "./components/EntriesNumberSelection";
+import SearchEntries from "./components/SearchEntries";
+import Pagination from "./components/Pagination";
+import ColumnHeader from "./components/ColumnHeader/index";
 
 import entrySearcher from "./utils/entrySearcher";
 import {
@@ -24,33 +24,13 @@ const ReactDataTable = ({
   columns,
   children,
   initialEntriesNumber = 10,
-  renderEntriesNumberSelection = (nb, setNb, initialNb) => (
-    <EntriesNumberSelection
-      entriesNumber={nb}
-      setEntriesNumber={setNb}
-      initialEntriesNumber={initialNb}
-    />
-  ),
-  renderSearchEntries = (value, setValue) => (
-    <SearchEntries value={value} setValue={setValue} />
-  ),
-  renderPagination = (
-    currentPage,
-    pageTotal,
-    setCurrentPage,
-    incrementPage
-  ) => (
-    <Pagination
-      currentPage={currentPage}
-      pageTotal={pageTotal}
-      setCurrentPage={setCurrentPage}
-      incrementPage={incrementPage}
-    />
-  ),
+  renderEntriesNumberSelection = props => <EntriesNumberSelection {...props} />,
+  renderSearchEntries = props => <SearchEntries {...props} />,
+  renderPagination = props => <Pagination {...props} />,
 }) => {
   const [
     { entriesNumber, search, currentPage },
-    { setSearch, setEntriesNumber, setCurrentPage, incrementCurrentPage },
+    { setSearch, setEntriesNumber, setCurrentPage, incrementPage },
   ] = useDataTableState(initialEntriesNumber);
 
   const [{ sortColumn, sortAsc }, sortColumnClicked] = useDataTableSorting();
@@ -81,12 +61,12 @@ const ReactDataTable = ({
   return (
     <div className={cx(className, styles.reactDataTable)}>
       <div className={styles.controls}>
-        {renderEntriesNumberSelection(
+        {renderEntriesNumberSelection({
           entriesNumber,
           setEntriesNumber,
-          initialEntriesNumber
-        )}
-        {renderSearchEntries(search, setSearch)}
+          initialEntriesNumber,
+        })}
+        {renderSearchEntries({ search, setSearch })}
       </div>
       <table className={styles.table}>
         <thead>
@@ -123,12 +103,12 @@ const ReactDataTable = ({
           {startIndex + entries.length} of {searchedEntries.length} entries
           {search !== "" && ` (filtered from ${children.length} total entries)`}
         </p>
-        {renderPagination(
+        {renderPagination({
           currentPage,
           pageTotal,
           setCurrentPage,
-          incrementCurrentPage
-        )}
+          incrementPage,
+        })}
       </div>
     </div>
   );

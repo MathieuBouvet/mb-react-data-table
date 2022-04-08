@@ -14,9 +14,9 @@ function setCurrentPage(currentPage) {
   };
 }
 
-function incrementCurrentPage(amount) {
+function incrementPage(amount) {
   return {
-    type: Types.incrementCurrentPage,
+    type: Types.incrementPage,
     payload: amount,
   };
 }
@@ -31,7 +31,7 @@ function setEntriesNumber(entriesNumber) {
 const actions = {
   setSearch,
   setCurrentPage,
-  incrementCurrentPage,
+  incrementPage,
   setEntriesNumber,
 };
 

@@ -12,13 +12,17 @@ function useDataTableState(initialEntriesNumber) {
 
   const setSearch = search => dispatch(actions.setSearch(search));
   const setCurrentPage = page => dispatch(actions.setCurrentPage(page));
-  const incrementCurrentPage = amount =>
-    dispatch(actions.incrementCurrentPage(amount));
+  const incrementPage = amount => dispatch(actions.incrementPage(amount));
   const setEntriesNumber = number => dispatch(actions.setEntriesNumber(number));
 
   return [
     state,
-    { setSearch, setCurrentPage, incrementCurrentPage, setEntriesNumber },
+    {
+      setSearch,
+      setCurrentPage,
+      incrementPage,
+      setEntriesNumber,
+    },
   ];
 }
 
