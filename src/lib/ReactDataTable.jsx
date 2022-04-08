@@ -27,6 +27,7 @@ const ReactDataTable = ({
   renderEntriesNumberSelection = props => <EntriesNumberSelection {...props} />,
   renderSearchEntries = props => <SearchEntries {...props} />,
   renderPagination = props => <Pagination {...props} />,
+  renderColumnHeader = props => <ColumnHeader {...props} />,
 }) => {
   const [
     { entriesNumber, search, currentPage },
@@ -71,15 +72,14 @@ const ReactDataTable = ({
       <table className={styles.table}>
         <thead>
           <tr className={styles.headers}>
-            {columns.map(({ name, dataKey }) => (
-              <ColumnHeader
-                key={dataKey}
-                onClick={() => sortColumnClicked(dataKey)}
-                sortStatus={getSortStatus(sortColumn === dataKey, sortAsc)}
-              >
-                {name}
-              </ColumnHeader>
-            ))}
+            {columns.map(({ name, dataKey }) =>
+              renderColumnHeader({
+                name,
+                key: dataKey,
+                onClick: () => sortColumnClicked(dataKey),
+                sortStatus: getSortStatus(sortColumn === dataKey, sortAsc),
+              })
+            )}
           </tr>
         </thead>
         <tbody>
@@ -128,6 +128,7 @@ ReactDataTable.propTypes = {
   renderEntriesNumberSelection: PropTypes.func,
   renderSearchEntries: PropTypes.func,
   renderPagination: PropTypes.func,
+  renderColumnHeader: PropTypes.func,
 };
 
 export default ReactDataTable;

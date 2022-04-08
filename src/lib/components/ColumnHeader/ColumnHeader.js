@@ -5,11 +5,11 @@ import { SortStatus } from "../../utils/sortStatus";
 
 import styles from "./columnHeader.module.css";
 
-const ColumnHeader = ({ onClick = () => {}, sortStatus, children }) => {
+const ColumnHeader = ({ onClick = () => {}, sortStatus, name }) => {
   return (
     <th>
       <button className={styles.sortColumnButton} onClick={onClick}>
-        {children}
+        {name}
         <span className={styles.carets}>
           <span
             className={cx(styles.caret, styles.caretUp, {
@@ -30,7 +30,7 @@ const ColumnHeader = ({ onClick = () => {}, sortStatus, children }) => {
 ColumnHeader.propTypes = {
   onClick: PropTypes.func,
   sortStatus: PropTypes.oneOf(Object.values(SortStatus)),
-  children: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default ColumnHeader;
