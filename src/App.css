@@ -1,12 +1,24 @@
 .App {
   text-align: center;
-  background-color: #282c34;
   min-height: 100vh;
-  color: white;
+  color: black;
   padding-top: 150px;
 }
 
-.table {
-  width: 550px;
+.App .table {
+  --row-even-bg-color: rgb(255, 241, 241);
+  --table-border-color: #ff8980;
+
+  width: 80vw;
   margin: auto;
+}
+
+.table .column {
+  --caret-color: rgb(138, 138, 195);
+  color: #333;
+}
+
+.table .pagination {
+  --pagination-button-active-bg-color: rgb(197, 135, 135);
+  --pagination-button-bg-color: rgb(252, 218, 218);
 }
