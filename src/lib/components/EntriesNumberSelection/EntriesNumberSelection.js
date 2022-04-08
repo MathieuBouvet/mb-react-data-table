@@ -1,3 +1,4 @@
+import cx from "classnames";
 import PropTypes from "prop-types";
 
 import styles from "./entriesNumberSelection.module.css";
@@ -8,6 +9,7 @@ const EntriesNumberSelection = ({
   entriesNumber,
   setEntriesNumber = () => {},
   initialEntriesNumber,
+  className,
 }) => {
   const isDefaultInAvailable = availableNumbers.find(
     number => number === initialEntriesNumber
@@ -18,7 +20,7 @@ const EntriesNumberSelection = ({
     : [...availableNumbers, initialEntriesNumber].sort((a, b) => a - b);
 
   return (
-    <div className={styles.entriesNumberSelection}>
+    <div className={cx(styles.entriesNumberSelection, className)}>
       Show
       <select
         value={entriesNumber}
@@ -37,6 +39,7 @@ EntriesNumberSelection.propTypes = {
   entriesNumber: PropTypes.number.isRequired,
   setEntriesNumber: PropTypes.func,
   initialEntriesNumber: PropTypes.number,
+  className: PropTypes.string,
 };
 
 export default EntriesNumberSelection;

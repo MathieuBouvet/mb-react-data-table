@@ -10,6 +10,9 @@ const Pagination = ({
   pageTotal,
   setCurrentPage = () => {},
   incrementPage = () => {},
+  className,
+  paginationButtonClassName,
+  activeClassName,
 }) => {
   const pages = getPages(currentPage, pageTotal);
 
@@ -20,11 +23,11 @@ const Pagination = ({
   const goNext = () => !isNextDisabled && incrementPage(1);
 
   return (
-    <div className={styles.pagination}>
+    <div className={cx(styles.pagination, className)}>
       <button
         onClick={goPrevious}
         disabled={isPreviousDisabled}
-        className={styles.paginationButton}
+        className={cx(styles.paginationButton, paginationButtonClassName)}
       >
         Previous
       </button>
@@ -35,8 +38,9 @@ const Pagination = ({
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={cx(styles.paginationButton, {
+            className={cx(styles.paginationButton, paginationButtonClassName, {
               [styles.currentPage]: page === currentPage,
+              [activeClassName]: page === currentPage,
             })}
           >
             {page}
@@ -46,7 +50,7 @@ const Pagination = ({
       <button
         onClick={goNext}
         disabled={isNextDisabled}
-        className={styles.paginationButton}
+        className={cx(styles.paginationButton, paginationButtonClassName)}
       >
         next
       </button>
@@ -59,6 +63,9 @@ Pagination.propTypes = {
   pageTotal: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func,
   incrementPage: PropTypes.func,
+  className: PropTypes.string,
+  paginationButtonClassName: PropTypes.string,
+  activeClassName: PropTypes.string,
 };
 
 export default Pagination;

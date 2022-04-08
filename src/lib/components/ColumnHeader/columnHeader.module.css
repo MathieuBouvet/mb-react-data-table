@@ -1,3 +1,8 @@
+.columnHeader {
+  --caret-color: rgb(201, 201, 201);
+  --caret-active-color: inherit;
+}
+
 .sortColumnButton {
   display: inline-flex;
   align-items: center;
@@ -20,11 +25,11 @@
 }
 
 .caret.active {
-  color: inherit;
+  color: var(--caret-active-color);
 }
 
 .caret {
-  color: rgb(201, 201, 201);
+  color: var(--caret-color);
 }
 
 .caretUp {

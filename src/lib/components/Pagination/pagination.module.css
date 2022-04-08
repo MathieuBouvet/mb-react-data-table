@@ -1,4 +1,9 @@
 .pagination {
+  --pagination-button-bg-color: transparent;
+  --pagination-button-disabled-bg-color: transparent;
+  --pagination-button-hover-bg-color: rgba(0, 0, 0, 0.1);
+  --pagination-button-active-bg-color: rgba(0, 0, 0, 0.15);
+
   display: flex;
   align-items: center;
   gap: 5px;
@@ -10,7 +15,12 @@
   font-family: inherit;
   border: none;
   border-radius: 2px;
-  background-color: transparent;
+  background-color: var(--pagination-button-bg-color);
+}
+
+.paginationButton:disabled {
+  background-color: var(--pagination-button-disabled-bg-color);
+
 }
 
 .paginationButton:not(:disabled) {
@@ -18,11 +28,11 @@
 }
 
 .paginationButton.currentPage {
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: var(--pagination-button-active-bg-color);
 }
 
 .paginationButton:not(.currentPage):not(:disabled):hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--pagination-button-hover-bg-color);
 }
 
 .ellipsis {
