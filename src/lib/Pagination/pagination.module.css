@@ -25,7 +25,10 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.elipsis {
+.ellipsis {
   transform: translateY(-3px);
   padding: 0 14px;
+}
+.ellipsis::after {
+  content: "...";
 }

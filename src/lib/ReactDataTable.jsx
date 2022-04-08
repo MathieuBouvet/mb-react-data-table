@@ -2,12 +2,20 @@ import cx from "classnames";
 import PropTypes from "prop-types";
 
 import useDataTableState from "./hooks/useDataTableState";
+import useDataTableSorting from "./hooks/useDataTableSorting";
 
 import EntriesNumberSelection from "./EntriesNumberSelection";
 import SearchEntries from "./SearchEntries";
 import Pagination from "./Pagination";
+import ColumnHeader from "./ColumnHeader/index";
 
 import entrySearcher from "./utils/entrySearcher";
+import {
+  defaultSortFn,
+  getDescendingSortFn,
+  getColumnSortFn,
+} from "./utils/entrySort";
+import { getSortStatus } from "./utils/sortStatus";
 
 import styles from "./reactDataTable.module.css";
 
@@ -45,8 +53,7 @@ const ReactDataTable = ({
     { setSearch, setEntriesNumber, setCurrentPage, incrementCurrentPage },
   ] = useDataTableState(initialEntriesNumber);
 
-  const startIndex = (currentPage - 1) * entriesNumber;
-  const endIndex = startIndex + entriesNumber;
+  const [{ sortColumn, sortAsc }, sortColumnClicked] = useDataTableSorting();
 
   const searchedEntries = children.filter(
     entrySearcher(
@@ -54,6 +61,19 @@ const ReactDataTable = ({
       columns.map(column => column.dataKey)
     )
   );
+
+  if (sortColumn != null) {
+    const baseSortFn =
+      columns.find(column => column.dataKey === sortColumn)?.sortFn ??
+      defaultSortFn;
+    const finalSortFn = sortAsc ? baseSortFn : getDescendingSortFn(baseSortFn);
+
+    searchedEntries.sort(getColumnSortFn(finalSortFn, sortColumn));
+  }
+
+  const startIndex = (currentPage - 1) * entriesNumber;
+  const endIndex = startIndex + entriesNumber;
+
   const entries = searchedEntries.slice(startIndex, endIndex);
   const hasEntries = entries.length > 0;
   const pageTotal = Math.ceil(searchedEntries.length / entriesNumber);
@@ -72,7 +92,13 @@ const ReactDataTable = ({
         <thead>
           <tr className={styles.headers}>
             {columns.map(({ name, dataKey }) => (
-              <th key={dataKey}>{name}</th>
+              <ColumnHeader
+                key={dataKey}
+                onClick={() => sortColumnClicked(dataKey)}
+                sortStatus={getSortStatus(sortColumn === dataKey, sortAsc)}
+              >
+                {name}
+              </ColumnHeader>
             ))}
           </tr>
         </thead>
@@ -85,7 +111,7 @@ const ReactDataTable = ({
             </tr>
           ))}
           {!hasEntries && (
-            <tr>
+            <tr className={styles.row}>
               <td colSpan={columns.length}>No matching record found</td>
             </tr>
           )}

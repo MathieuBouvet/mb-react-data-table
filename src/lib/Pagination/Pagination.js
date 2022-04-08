@@ -30,9 +30,7 @@ const Pagination = ({
       </button>
       {pages.map((page, index) =>
         page === ELISPSIS_MARKER ? (
-          <div key={`elipsis-${index}`} className={styles.elipsis}>
-            ...
-          </div>
+          <div key={`ellipsis-${index}`} className={styles.ellipsis} />
         ) : (
           <button
             key={page}

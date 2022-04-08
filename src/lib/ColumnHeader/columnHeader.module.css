@@ -1,0 +1,42 @@
+.sortColumnButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: none;
+  background-color: transparent;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.carets {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.5;
+  font-size: 0.55rem;
+  margin-left: 10px;
+}
+
+.caret.active {
+  color: inherit;
+}
+
+.caret {
+  color: rgb(201, 201, 201);
+}
+
+.caretUp {
+  transform: rotate(45deg);
+}
+.caretUp::after {
+  content: "◤";
+}
+
+.caretDown {
+  transform: rotate(-135deg) translateX(1px);
+}
+.caretDown::after {
+  content: "◤";
+}
