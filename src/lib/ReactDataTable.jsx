@@ -29,6 +29,10 @@ const ReactDataTable = ({
   renderSearchEntries = props => <SearchEntries {...props} />,
   renderPagination = props => <Pagination {...props} />,
   renderColumnHeader = props => <ColumnHeader {...props} />,
+  tableClassName,
+  headerClassName,
+  rowClassName,
+  cellClassName,
 }) => {
   const [
     { entriesNumber, search, currentPage },
@@ -70,9 +74,9 @@ const ReactDataTable = ({
         })}
         {renderSearchEntries({ search, setSearch })}
       </div>
-      <table className={styles.table}>
+      <table className={cx(styles.table, tableClassName)}>
         <thead>
-          <tr className={styles.headers}>
+          <tr className={cx(styles.headers, headerClassName)}>
             {columns.map(({ name, dataKey }) =>
               renderColumnHeader({
                 name,
@@ -85,9 +89,14 @@ const ReactDataTable = ({
         </thead>
         <tbody>
           {entries.map((row, index) => (
-            <tr key={rowKeyProducer(row) ?? index} className={styles.row}>
+            <tr
+              key={rowKeyProducer(row) ?? index}
+              className={cx(styles.row, rowClassName)}
+            >
               {columns.map(({ dataKey }) => (
-                <td key={dataKey}>{row[dataKey]}</td>
+                <td key={dataKey} className={cx(styles.cell, cellClassName)}>
+                  {row[dataKey]}
+                </td>
               ))}
             </tr>
           ))}
@@ -131,6 +140,10 @@ ReactDataTable.propTypes = {
   renderSearchEntries: PropTypes.func,
   renderPagination: PropTypes.func,
   renderColumnHeader: PropTypes.func,
+  tableClassName: PropTypes.string,
+  headerClassName: PropTypes.string,
+  rowClassName: PropTypes.string,
+  cellClassName: PropTypes.string,
 };
 
 export default ReactDataTable;

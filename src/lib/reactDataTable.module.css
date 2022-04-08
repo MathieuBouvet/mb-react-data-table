@@ -1,4 +1,9 @@
 .reactDataTable {
+  --row-border-color: #ddd;
+  --row-even-bg-color: white;
+  --row-odd-bg-color: #f9f9f9;
+  --table-border-color: black;
+
   display: flex;
   flex-direction: column;
 }
@@ -15,21 +20,25 @@
 }
 
 .headers {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--table-border-color);
 }
 
 .row {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--row-border-color);
 }
 
-.row td {
+.cell {
   padding: 8px 10px;
 }
 
 .row:nth-child(odd) {
-  background-color: #f9f9f9;
+  background-color: var(--row-odd-bg-color);
+}
+
+.row:nth-child(even) {
+  background-color: var(--row-even-bg-color);
 }
 
 .row:last-child {
-  border-color: black;
+  border-color: var(--table-border-color);
 }
