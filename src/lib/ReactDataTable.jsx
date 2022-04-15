@@ -42,12 +42,7 @@ const ReactDataTable = ({
 
   const [{ sortColumn, sortAsc }, sortColumnClicked] = useDataTableSorting();
 
-  const searchedEntries = children.filter(
-    entrySearcher(
-      search,
-      columns.map(column => column.dataKey)
-    )
-  );
+  const searchedEntries = children.filter(entrySearcher(search, columns));
 
   if (sortColumn != null) {
     const baseSortFn =
@@ -95,8 +90,7 @@ const ReactDataTable = ({
               className={cx(styles.row, rowClassName)}
             >
               {columns.map(({ dataKey }, index) => {
-                const formater =
-                  columns[index]?.formater ?? defaultFormater;
+                const formater = columns[index]?.formater ?? defaultFormater;
                 return (
                   <td key={dataKey} className={cx(styles.cell, cellClassName)}>
                     {formater(row[dataKey])}

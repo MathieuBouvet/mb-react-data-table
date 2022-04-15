@@ -1,9 +1,15 @@
-function entrySearcher(searchedValue, entryKeys) {
+import { defaultFormater } from "./defaultFormater";
+
+function entrySearcher(searchedValue, columns) {
   const lowerCasedSearchValue = searchedValue.toLowerCase();
   return entry => {
-    return entryKeys.some(key =>
-      entry[key]?.toString().toLowerCase().includes(lowerCasedSearchValue)
-    );
+    return columns.some(({ dataKey, formater }) => {
+      const format = formater ?? defaultFormater;
+      return format(entry[dataKey])
+        .toString()
+        .toLowerCase()
+        .includes(lowerCasedSearchValue);
+    });
   };
 }
 
