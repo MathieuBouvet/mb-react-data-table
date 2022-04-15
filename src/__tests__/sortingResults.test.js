@@ -13,11 +13,10 @@ test("sorting by default", () => {
     </ReactDataTable>
   );
 
-  const stringColumnButton = screen.getByRole("button", { name: /strings/ });
-  fireEvent.click(stringColumnButton);
-
   const tableBody = screen.getByTestId("table-body");
-
+  const stringColumnButton = screen.getByRole("button", { name: /strings/ });
+  
+  fireEvent.click(stringColumnButton);
   const rowsAsc = within(tableBody).getAllByRole("row");
   const sortedAsc = rowsAsc.map(row => row.textContent);
   expect(sortedAsc).toEqual(["a", "b", "c", "d", "e", "f"]);
@@ -44,11 +43,10 @@ test("sorting with custom sort function", () => {
     </ReactDataTable>
   );
 
-  const numberColumnButton = screen.getByRole("button", { name: /numbers/ });
-  fireEvent.click(numberColumnButton);
-
   const tableBody = screen.getByTestId("table-body");
+  const numberColumnButton = screen.getByRole("button", { name: /numbers/ });
 
+  fireEvent.click(numberColumnButton);
   const rowsAsc = within(tableBody).getAllByRole("row");
   const sortedAsc = rowsAsc.map(row => Number(row.textContent));
   expect(sortedAsc).toEqual([1, 2, 3, 4, 5, 6, 11]);
