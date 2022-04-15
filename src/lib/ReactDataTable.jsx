@@ -88,7 +88,7 @@ const ReactDataTable = ({
             )}
           </tr>
         </thead>
-        <tbody>
+        <tbody data-testid="table-body">
           {entries.map((row, index) => (
             <tr
               key={rowKeyProducer(row) ?? index}
