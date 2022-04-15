@@ -68,9 +68,9 @@ const ReactDataTable = ({
     <div className={cx(className, styles.reactDataTable)}>
       <div className={styles.controls}>
         {renderEntriesNumberSelection({
-          entriesNumber,
+          selectedNumber: entriesNumber,
+          initiallySelectedNumber: initialEntriesNumber,
           setEntriesNumber,
-          initialEntriesNumber,
         })}
         {renderSearchEntries({ search, setSearch })}
       </div>
