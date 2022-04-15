@@ -32,4 +32,30 @@ const filteringTestData = [
   { string: "match row 6", object: { test: "no" } },
 ];
 
-export { simpleData, tableData, date, filteringTestData };
+const defaultSortingTestData = [
+  { string: "c" },
+  { string: "b" },
+  { string: "a" },
+  { string: "d" },
+  { string: "f" },
+  { string: "e" },
+];
+
+const customSortFunctionTestData = [
+  { number: 3 },
+  { number: 4 },
+  { number: 1 },
+  { number: 11 },
+  { number: 2 },
+  { number: 6 },
+  { number: 5 },
+];
+
+export {
+  simpleData,
+  tableData,
+  date,
+  filteringTestData,
+  defaultSortingTestData,
+  customSortFunctionTestData,
+};
