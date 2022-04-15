@@ -16,6 +16,7 @@ import {
   getColumnSortFn,
 } from "./utils/entrySort";
 import { getSortStatus } from "./utils/sortStatus";
+import { defaultFormater } from "./utils/defaultFormater";
 
 import styles from "./reactDataTable.module.css";
 
@@ -93,11 +94,15 @@ const ReactDataTable = ({
               key={rowKeyProducer(row) ?? index}
               className={cx(styles.row, rowClassName)}
             >
-              {columns.map(({ dataKey }) => (
-                <td key={dataKey} className={cx(styles.cell, cellClassName)}>
-                  {row[dataKey]}
-                </td>
-              ))}
+              {columns.map(({ dataKey }, index) => {
+                const formater =
+                  columns[index]?.formater ?? defaultFormater;
+                return (
+                  <td key={dataKey} className={cx(styles.cell, cellClassName)}>
+                    {formater(row[dataKey])}
+                  </td>
+                );
+              })}
             </tr>
           ))}
           {!hasEntries && (
@@ -131,6 +136,7 @@ ReactDataTable.propTypes = {
       name: PropTypes.string.isRequired,
       dataKey: PropTypes.string.isRequired,
       sortFn: PropTypes.func,
+      formater: PropTypes.func,
     })
   ).isRequired,
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
