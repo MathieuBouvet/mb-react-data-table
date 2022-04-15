@@ -17,4 +17,19 @@ const tableData = [
   { number: 1212, string: "twelve", date: new Date("2022-01-12") },
 ];
 
-export { simpleData, tableData, date };
+const filteringTestData = [
+  { string: "match row 1", object: { test: "format match 1" } },
+  { string: "match row 2", object: { test: "format match 2" } },
+  { string: "match row 3", object: { test: "no" } },
+  { string: "match row 4", object: { test: "no" } },
+  { string: "not in query 1", object: { test: "no" } },
+  { string: "not in query 2", object: { test: "format match 3" } },
+  { string: "not in query 3", object: { test: "no" } },
+  { string: "not in query 4", object: { test: "no" } },
+  { string: "match row 5", object: { test: "no" } },
+  { string: "not in query 3", object: { test: "format match 4" } },
+  { string: "not in query 4", object: { test: "no" } },
+  { string: "match row 6", object: { test: "no" } },
+];
+
+export { simpleData, tableData, date, filteringTestData };
