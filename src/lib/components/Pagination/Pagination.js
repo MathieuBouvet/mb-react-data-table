@@ -52,7 +52,7 @@ const Pagination = ({
         disabled={isNextDisabled}
         className={cx(styles.paginationButton, paginationButtonClassName)}
       >
-        next
+        Next
       </button>
     </div>
   );
