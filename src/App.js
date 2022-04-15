@@ -1,14 +1,26 @@
 import "./App.css";
-import ReactDataTable, { ColumnHeader, Pagination } from "./lib";
+import ReactDataTable, {
+  ColumnHeader,
+  Pagination,
+  EntriesNumberSelection,
+} from "./lib";
 
 function App() {
   const testHeader = [
     { name: "test 1", dataKey: "one", sortFn: (a = 0, b = 0) => a - b },
     { name: "test 2", dataKey: "two" },
-    { name: "test 3", dataKey: "three" },
+    {
+      name: "test 3",
+      dataKey: "three",
+      formater: data => data?.toDateString?.() ?? data ?? "",
+    },
   ];
   const testData = [
-    { one: "1", two: "second value", three: 3 },
+    {
+      one: "1",
+      two: "second value",
+      three: new Date("2022-01-15"),
+    },
     { one: "2", two: "second value", three: "row 2 but 3" },
     { one: "3" },
     { one: "3", two: "value of 2", three: 42 },
@@ -44,6 +56,9 @@ function App() {
         )}
         renderPagination={props => (
           <Pagination {...props} className="pagination" />
+        )}
+        renderEntriesNumberSelection={props => (
+          <EntriesNumberSelection {...props} availableNumbers={[2, 3, 4]} />
         )}
       >
         {testData}
