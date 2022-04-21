@@ -25,6 +25,7 @@
 
 .row {
   border-bottom: 1px solid var(--row-border-color);
+  text-align: center;
 }
 
 .cell {
