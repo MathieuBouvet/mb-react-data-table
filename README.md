@@ -4,6 +4,24 @@
 
 A simple react library for displaying data as an html table. Features pagination, filtering results and column sorting with realtive ease of style customization.
 
+## Content
+
+- [1 - Installation](#installation)
+- [2 - Basic usage](#basic-usage)
+- [3 - More usages](#more-usages)
+  - [Custom sort function](#custom-sort-function)
+  - [Row key](#row-key)
+  - [Styling](#styling)
+- [4 - Additional components](#additional-components)
+  - [Reusing the default](#reusing-the-default)
+  - [Custom styling](#custom-styling)
+- [5 - Components documentation](#components-documentation)
+  - [DataTable](#datatable)
+  - [EntriesNumberSelection](#entriesnumberselection)
+  - [Pagination](#pagination)
+  - [Search Entries](#search-entries)
+  - [Column header](#column-header)
+
 ## Installation
 
 ```console
@@ -349,7 +367,7 @@ The main componenet of this library. Will render your data as an html table.
 | renderEntriesNumberSelection | no       | ({ selectedNumber: number, setSelectedNumber: (number) => void, }) => React.node                                                             | Optional. Render prop. Controls the selection of the number of entries displayed. Receive the currently selected number of entries, and a function to set it to a new value.                                                                                                                                                                          |
 | renderSearchEntries          | no       | ({ search: string, setSearch: (string) => void, }) => React.node                                                                             | Optional. Render Prop. Controls the search box for filtering the results. Receive the currently searched text, and a function to set it to a new value.                                                                                                                                                                                               |
 | renderPagination             | no       | ({ currentPage: number, pageTotal: number, setCurrentPage: (page: number) => void, incrementPage: (amount: number) => void, )} => React.node | Optional. Render Prop. Controls the pagination. Receive the current page (starting at 1, so the first page is page 1), the total of pages, a function to set the current directly, and a function to increment the page by an amount (can be negative)                                                                                                |
-| renderColumnHeader           | no       | ({ name: string, onClick: () => void, sortStatus: SortStatus, key: string }) => React.node                                                   | Optional. Render props. Controls each table header cells. Will receive the name of the column, an onClick callback that will switch the sort status when called, the current sort status and the current dataKey                                                                                                                                                  |
+| renderColumnHeader           | no       | ({ name: string, onClick: () => void, sortStatus: SortStatus, key: string }) => React.node                                                   | Optional. Render props. Controls each table header cells. Will receive the name of the column, an onClick callback that will switch the sort status when called, the current sort status and the current dataKey                                                                                                                                      |
 
 ### EntriesNumberSelection
 
@@ -381,8 +399,18 @@ These css variables are applied to the component level, and can be overridden :
 ```css
 --pagination-button-bg-color: transparent; /* controls the background color of the pagination buttons */
 --pagination-button-disabled-bg-color: transparent; /* controls the background color of the disabled pagination buttons */
---pagination-button-hover-bg-color: rgba(0, 0, 0, 0.1); /* controls the background color of the pagination buttons when hovered */
---pagination-button-active-bg-color: rgba(0, 0, 0, 0.15); /* controls the background color of the pagination button that matches the current page */
+--pagination-button-hover-bg-color: rgba(
+  0,
+  0,
+  0,
+  0.1
+); /* controls the background color of the pagination buttons when hovered */
+--pagination-button-active-bg-color: rgba(
+  0,
+  0,
+  0,
+  0.15
+); /* controls the background color of the pagination button that matches the current page */
 ```
 
 ### Search Entries
