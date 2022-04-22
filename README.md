@@ -293,3 +293,125 @@ If you need to apply more styles, you can pass classNames to the component :
   {data}
 </DataTable>
 ```
+
+## Additional components
+
+This library provide four additional components alongside the main table components. These are the search box, the number of displayed rows selection, the column headers, and the pagination.
+
+Optional render props are available on the table component for each of these in case you need full control over them. They are also exported as named export, in case you just need some small tweaks to the defaults. Let's take the number of displayed rows as an example to see how it works.
+
+### Reusing the default
+
+Let's say you want the user to be able to choose between a list of 10 or 15 or 20, instead of the default 10 or 25 or 50 or 100.
+
+First, import the components:
+
+```js
+import DataTable, { EntriesNumberSelection } from "mb-react-data-table;
+```
+
+Declare your data and your columns configuration as always (we will skip this part here), and pass the render prop to the DataTable component as such:
+
+```js
+<DataTable
+  columns={columns}
+  renderEntriesNumberSelection={props => (
+    <EntriesNumberSelection {...props} availableNumbers={[10, 15, 20]} />
+  )}
+>
+  {data}
+</DataTable>
+```
+
+It works the same for the other components. The logic is you can have full control over these additional parts with the render props if you need to, but you can also reuse the exported components for convenience, especially if you only need some custom styles.
+
+### Custom styling
+
+The exported components can receive some classNames to have full control over the styles, but just like the main table components you will be able to override some css custom properties in case you just need some color customization. This documentation will provide additional details on that in the section dedicated to each components.
+
+## Components documentation
+
+### DataTable
+
+The main componenet of this library. Will render your data as an html table.
+
+| props                        | required | type                                                                                                                                         | description                                                                                                                                                                                                                                                                                                                                           |
+| ---------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| columns                      | yes      | { name: string, dataKey: string, sortFn?: (a, b) => number, formater?: value => string, }[]                                                  | This is where you provide the columns configuration. A column configuration is an object with a "name" property (required, that will be displayed in the table header), a "dataKey" property (required, it must match one of the property of the data passed in the children prop). Optionally you can define a sort function and a formater function |
+| children                     | yes      | array of object                                                                                                                              | This is where you pass your data. Each object of this array will be a row in the table. The values of these objects will be cells in the table, and are placed in the columns where their key matches the "dataKey" of the columns configuration.                                                                                                     |
+| rowKeyProducer               | no       | (dataObject) => string                                                                                                                       | Optional. Used to generate (react) keys for a row. Will receive the data object, and will be called for each rows. It defaults to a function that tries to read an "id" attribute (if it exists) on the data object                                                                                                                                   |
+| initialEntriesNumber         | no       | number                                                                                                                                       | Optional. Used to set the number of entries shown initially. Defaults to 10                                                                                                                                                                                                                                                                           |
+| className                    | no       | string                                                                                                                                       | Adds a css class to this component                                                                                                                                                                                                                                                                                                                    |
+| tableClassName               | no       | string                                                                                                                                       | Adds a css class to the table element                                                                                                                                                                                                                                                                                                                 |
+| headerClassName              | no       | string                                                                                                                                       | Adds a css class to the table header row (the tr element containing the th elements)                                                                                                                                                                                                                                                                  |
+| rowClassName                 | no       | string                                                                                                                                       | Adds a css class to the table body rows (all the tr elements containing the td elements)                                                                                                                                                                                                                                                              |
+| cellClassName                | no       | string                                                                                                                                       | Adds a css class to all table body cells (all the td elements)                                                                                                                                                                                                                                                                                        |
+| renderEntriesNumberSelection | no       | ({ selectedNumber: number, setSelectedNumber: (number) => void, }) => React.node                                                             | Optional. Render prop. Controls the selection of the number of entries displayed. Receive the currently selected number of entries, and a function to set it to a new value.                                                                                                                                                                          |
+| renderSearchEntries          | no       | ({ search: string, setSearch: (string) => void, }) => React.node                                                                             | Optional. Render Prop. Controls the search box for filtering the results. Receive the currently searched text, and a function to set it to a new value.                                                                                                                                                                                               |
+| renderPagination             | no       | ({ currentPage: number, pageTotal: number, setCurrentPage: (page: number) => void, incrementPage: (amount: number) => void, )} => React.node | Optional. Render Prop. Controls the pagination. Receive the current page (starting at 1, so the first page is page 1), the total of pages, a function to set the current directly, and a function to increment the page by an amount (can be negative)                                                                                                |
+| renderColumnHeader           | no       | ({ name: string, onClick: () => void, sortStatus: SortStatus, key: string }) => React.node                                                   | Optional. Render props. Controls each table header cells. Will receive the name of the column, an onClick callback that will switch the sort status when called, the current sort status and the current dataKey                                                                                                                                                  |
+
+### EntriesNumberSelection
+
+The default component used to select the number of entries (rows) displayed.
+
+| props            | required | type             | description                                                                         |
+| ---------------- | -------- | ---------------- | ----------------------------------------------------------------------------------- |
+| selectedNumber   | yes      | number           | The currently selected number.                                                      |
+| setEntriesNumber | yes      | (number) => void | A function to set the number of displayed entries to a new value                    |
+| availableNumbers | no       | number[]         | The numbers available for the user to choose from.<br>Defaults to [10, 25, 50, 100] |
+| className        | no       | string           | Add a css class to the component                                                    |
+
+### Pagination
+
+The default component used to paginate the results.
+
+| props                     | required | type                     | description                                                             |
+| ------------------------- | -------- | ------------------------ | ----------------------------------------------------------------------- |
+| currentPage               | yes      | number                   | The currently selected page. It starts at 1, (so the first page is 1)   |
+| pageTotal                 | yes      | number                   | The number of pages                                                     |
+| setCurrentPage            | no       | (number) => void         | A function to set the current page to a new value                       |
+| incrementPage             | no       | (amount: number) => void | A function to increase or decrease the current page by "amount"         |
+| className                 | no       | string                   | Adds a css class to the component                                       |
+| paginationButtonClassName | no       | string                   | Adds a css class to all the pagination button elements                  |
+| activeClassName           | no       | string                   | Adds a css class to the pagination button that matches the current page |
+
+These css variables are applied to the component level, and can be overridden :
+
+```css
+--pagination-button-bg-color: transparent; /* controls the background color of the pagination buttons */
+--pagination-button-disabled-bg-color: transparent; /* controls the background color of the disabled pagination buttons */
+--pagination-button-hover-bg-color: rgba(0, 0, 0, 0.1); /* controls the background color of the pagination buttons when hovered */
+--pagination-button-active-bg-color: rgba(0, 0, 0, 0.15); /* controls the background color of the pagination button that matches the current page */
+```
+
+### Search Entries
+
+The default component used to filter the results
+
+| props          | required | type             | description                                         |
+| -------------- | -------- | ---------------- | --------------------------------------------------- |
+| search         | no       | string           | The currently searched value                        |
+| setSearch      | no       | (string) => void | A function to set the current search to a new value |
+| className      | no       | string           | Adds a css class to the component                   |
+| inputClassName | no       | string           | Adds a css class to the input element               |
+
+### Column header
+
+The default component used to render the table header cells.
+
+| props            | required | type       | description                                                                                                                       |
+| ---------------- | -------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| name             | yes      | string     | The displayed column name                                                                                                         |
+| sortStatus       | no       | SortStatus | The current sort status of this column. If you need to set or read this, use the provided SortStatus object (it acts as an enum). |
+| onClick          | no       | fn         | Called back when the component is clicked                                                                                         |
+| className        | no       | string     | Adds a css class to the component                                                                                                 |
+| contentClassName | no       | string     | Adds a css class to the button wrapping the name of the column                                                                    |
+| activeClassName  | no       | string     | Adds a css class to the caret matching the sort status of the column                                                              |
+
+These css variables are applied to the component level, and can be overridden :
+
+```css
+--caret-color: rgb(201, 201, 201); /* controls the color of the carets */
+--caret-active-color: inherit; /* controls the color of the caret matching the sort status */
+```
