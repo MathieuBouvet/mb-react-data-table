@@ -26,7 +26,7 @@ const SearchEntries = ({
 
 SearchEntries.propTypes = {
   search: PropTypes.string,
-  seatSearch: PropTypes.func,
+  setSearch: PropTypes.func,
   className: PropTypes.string,
   inputClassName: PropTypes.string,
 };

@@ -7,7 +7,7 @@ import styles from "./columnHeader.module.css";
 
 const ColumnHeader = ({
   onClick = () => {},
-  sortStatus,
+  sortStatus = SortStatus.not,
   name,
   className,
   contentClassName,
@@ -40,9 +40,9 @@ const ColumnHeader = ({
 };
 
 ColumnHeader.propTypes = {
-  onClick: PropTypes.func,
+  name: PropTypes.string.isRequired,
   sortStatus: PropTypes.oneOf(Object.values(SortStatus)),
-  name: PropTypes.string,
+  onClick: PropTypes.func,
   className: PropTypes.string,
   contentClassName: PropTypes.string,
   activeClassName: PropTypes.string,
