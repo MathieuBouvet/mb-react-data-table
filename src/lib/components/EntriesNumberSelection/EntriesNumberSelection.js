@@ -6,17 +6,16 @@ import styles from "./entriesNumberSelection.module.css";
 const EntriesNumberSelection = ({
   selectedNumber,
   setEntriesNumber = () => {},
-  initiallySelectedNumber,
   availableNumbers = [10, 25, 50, 100],
   className,
 }) => {
-  const isDefaultInAvailable = availableNumbers.find(
-    number => number === initiallySelectedNumber
+  const isSelectedInAvailable = availableNumbers.find(
+    number => number === selectedNumber
   );
 
-  const allAvailableNumbers = isDefaultInAvailable
+  const allAvailableNumbers = isSelectedInAvailable
     ? availableNumbers
-    : [...availableNumbers, initiallySelectedNumber].sort((a, b) => a - b);
+    : [selectedNumber, ...availableNumbers].sort((a, b) => a - b);
 
   return (
     <div className={cx(styles.entriesNumberSelection, className)}>
@@ -37,7 +36,6 @@ const EntriesNumberSelection = ({
 EntriesNumberSelection.propTypes = {
   selectedNumber: PropTypes.number.isRequired,
   setEntriesNumber: PropTypes.func,
-  initiallySelectedNumber: PropTypes.number.isRequired,
   availableNumbers: PropTypes.arrayOf(PropTypes.number),
   className: PropTypes.string,
 };

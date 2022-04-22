@@ -65,7 +65,6 @@ const ReactDataTable = ({
       <div className={styles.controls}>
         {renderEntriesNumberSelection({
           selectedNumber: entriesNumber,
-          initiallySelectedNumber: initialEntriesNumber,
           setEntriesNumber,
         })}
         {renderSearchEntries({ search, setSearch })}
